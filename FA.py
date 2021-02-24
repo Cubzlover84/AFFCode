@@ -15,7 +15,7 @@ pd.options.mode.chained_assignment = None
 
 current_season=get_current_year(data)
 phase=get_phase(data)
-wave = 2
+wave = int(input("What FA wave is it? If it's PSFA, type 4"))
 
 tiers, rookiecontracts = get_tier_sheets()
 
