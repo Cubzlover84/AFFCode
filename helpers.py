@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-import lxml.html as lh
+#import lxml.html as lh
 import csv
 
 def get_tier_sheets():
