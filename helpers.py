@@ -265,7 +265,7 @@ def rookie_resignings(data, rookiecontracts,year, phase):
                     #player['born']['loc'] = player['born']['loc'] + ' - {0} TO'.format(year+4)
                 sign_player(data,player['firstName'] + ' ' + player['lastName'],player['draft']['tid'],salary,3, year, phase,rookie = True)
                 counter +=1
-    extend_options(data, year, excluded=[])
+    #extend_options(data, year, excluded=[])
     print('Signed ' + str(counter-1) + ' rookies.')
 
 def extend_options(data,draft, excluded):
