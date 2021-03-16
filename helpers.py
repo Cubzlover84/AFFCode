@@ -214,9 +214,10 @@ def validate_playername_offers(data,sheet,year):
 
 
 
-def print_multioffers(sheet,year):
+def print_multioffers(sheet,year, wave):
     multioffers = sheet[sheet.duplicated('player',keep=False)]
-    multioffers = multioffers[multioffers.ovr> 0]
+    if wave == 1:
+        multioffers = multioffers[multioffers.pot> 60]
     multioffers.sort_values('player')
     multioffers['jackets'] = ""
     multioffers['lam'] = ""
