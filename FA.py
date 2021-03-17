@@ -23,7 +23,7 @@ tiers, rookiecontracts = get_tier_sheets()
 
 
 newoffers = validate_playername_offers(data,offers, current_season)
-print_multioffers(newoffers,current_season)
+print_multioffers(newoffers,current_season, wave)
 sign_singleoffers(data,newoffers,current_season, phase, wave)
 
 with open('edited.json', 'w') as outfile:
