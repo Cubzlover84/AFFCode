@@ -71,12 +71,23 @@ def get_player_age(data,name,year):
     return year - get_player(data,name)['born']['year']
 
 def get_player_ratings(data,name,year):
+    season1 = 0
+    season2 = 0
     for player in data['players']:
         if name == player['firstName'] + ' ' + player['lastName']:
+            x = 0
             for seasons in player['ratings']:
                 if seasons['season'] == year:
-                    return seasons
-
+                    x += 1
+                if x == 1:
+                    season1 = seasons
+                elif x== 2:
+                    season2 = seasons
+    print("Seasons Ratings", x)
+    if season2 != 0:
+        return season2
+    else:
+        return season1
     print('Couldnt find '+ str(name) +'\'s rating')
     return -1
 
@@ -106,7 +117,7 @@ def get_tier(data,name,year, phase, years):
             tiers,rookiecontracts=get_tier_sheets()
             return tiers[get_player_pos(data,name,year)].loc[(get_player_ratings(data,name,year)['ovr']-5)].at[str(get_player_age(data,name,year))]
         except:
-            print('Could not find ' + str(name) + '\'s tier value.')
+            #print('Could not find ' + str(name) + '\'s tier value.')
             return -1
     else:
         try:
@@ -114,7 +125,7 @@ def get_tier(data,name,year, phase, years):
             tiers,rookiecontracts=get_tier_sheets()
             return tiers[get_player_pos(data,name,year)].loc[get_player_ratings(data,name,year)['ovr']].at[str(get_player_age(data,name,year))]
         except:
-            print('Could not find ' + str(name) + '\'s tier value.')
+            #print('Could not find ' + str(name) + '\'s tier value.')
             return -1
 
 
@@ -219,18 +230,19 @@ def print_multioffers(sheet,year, wave):
     if wave == 1:
         multioffers = multioffers[multioffers.pot> 60]
     multioffers.sort_values('player')
-    multioffers['jackets'] = ""
+    multioffers['El g'] = ""
     multioffers['lam'] = ""
     multioffers['cubz'] = ""
     multioffers['sciipi'] = ""
     multioffers['fingal'] = ""
-    multioffers['RWBY'] = ""
+    multioffers['ryan'] = ""
     multioffers['winner'] = ""
+    multioffers['father'] = ""
     #, , multioffers['brian'], multioffers['spartan'], multioffers['lam']
     #,'jackets','brian','spartan','lam'
     print('Saving multioffers table... ')
     #print(multioffers[multioffers.ovr <=60])
-    multioffers[['jackets','fingal','RWBY','cubz','sciipi','lam','winner','team','player','ratings','traits','salary','years','pitch']].sort_values('player').to_csv('multioffers.csv',index=False)
+    multioffers[['El g','fingal','ryan','cubz','sciipi','father','lam','winner','team','player','ratings','traits','salary','years','pitch']].sort_values('player').to_csv('multioffers.csv',index=False)
 
 def sign_singleoffers(data,sheet,year,phase, wave):
     singleoffers = sheet.drop_duplicates(['player'],keep=False)
