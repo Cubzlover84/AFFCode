@@ -83,7 +83,6 @@ def get_player_ratings(data,name,year):
                     season1 = seasons
                 elif x== 2:
                     season2 = seasons
-    #print("Seasons Ratings", x)
     if season2 != 0:
         return season2
     else:
