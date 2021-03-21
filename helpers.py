@@ -83,7 +83,7 @@ def get_player_ratings(data,name,year):
                     season1 = seasons
                 elif x== 2:
                     season2 = seasons
-    print("Seasons Ratings", x)
+    #print("Seasons Ratings", x)
     if season2 != 0:
         return season2
     else:
@@ -203,6 +203,7 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
     return -1
 
 def validate_playername_offers(data,sheet,year):
+    sheet.drop(labels = ['code word'], axis = 1)
     sheet['ratings']=''
     sheet['ovr'] = 0
     sheet['pot'] = 0
@@ -213,11 +214,11 @@ def validate_playername_offers(data,sheet,year):
         realname = validate_player(data,row.player)
         if realname == -1 or get_player_fa(data,realname) == -1:
             continue
-        sheet.iloc[row.Index,3] = realname
-        sheet.iloc[row.Index,7] = str(get_player_pos(data,realname,year))+ ' ' + str(get_player_age(data,realname,year)) + 'y ' + str(get_player_ratings(data,realname,year)['ovr']) + ' ' + str(get_player_ratings(data,realname,year)['pot'])
-        sheet.iloc[row.Index,8] = get_player_ratings(data,realname,year)['ovr']
-        sheet.iloc[row.Index,9] = get_player_ratings(data,realname,year)['pot']
-        sheet.iloc[row.Index,10] = get_player_traits(data, realname)
+        sheet.iloc[row.Index,4] = realname
+        sheet.iloc[row.Index,8] = str(get_player_pos(data,realname,year))+ ' ' + str(get_player_age(data,realname,year)) + 'y ' + str(get_player_ratings(data,realname,year)['ovr']) + ' ' + str(get_player_ratings(data,realname,year)['pot'])
+        sheet.iloc[row.Index,9] = get_player_ratings(data,realname,year)['ovr']
+        sheet.iloc[row.Index,10] = get_player_ratings(data,realname,year)['pot']
+        sheet.iloc[row.Index,11] = get_player_traits(data, realname)
         output = sheet
         #print(output)
     output[output.ovr>0][['time','user','team','player','salary','years','pitch']].sort_values('player').to_csv('newoffers.csv',index=False)
