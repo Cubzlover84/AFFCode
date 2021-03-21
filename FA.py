@@ -9,7 +9,7 @@ import time
 
 export = open('export.json')
 data = json.load(codecs.open('export.json', 'r+', 'utf-8-sig'))
-offers= pd.read_csv('offers.csv', names=['time','user','team','player','salary','years','pitch'],header=0)
+offers= pd.read_csv('offers.csv', names=['time','user','code word','team','player','salary','years','pitch'],header=0)
 
 pd.options.mode.chained_assignment = None
 
