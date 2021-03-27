@@ -201,6 +201,12 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
     print(name+': Could not find player '+name)
     return -1
 
+def addSalaries(data,name,team,salary,years, year, phase, rookie):
+    for player in data['players']:
+        if name == player['firstName'] + ' ' + ['lastName']:
+            for i in length(years):
+                salaries.append({"season":year+i,"amount":salary*1000})
+
 def validate_playername_offers(data,sheet,year):
     sheet.drop(labels = ['code word'], axis = 1)
     sheet['ratings']=''
@@ -275,7 +281,10 @@ def rookie_resignings(data, rookiecontracts,year, phase):
                 salary = rookiecontracts.iloc[picknumber-1].at['contract']
                 #if player['draft']['round'] == 1:
                     #player['born']['loc'] = player['born']['loc'] + ' - {0} TO'.format(year+4)
-                sign_player(data,player['firstName'] + ' ' + player['lastName'],player['draft']['tid'],salary,3, year, phase,rookie = True)
+                team = player['draft']['tid']
+                if len(player['transactions']) > 1:
+                    team = player['transactions'][1]['tid']
+                sign_player(data,player['firstName'] + ' ' + player['lastName'],team,salary,3, year, phase,rookie = True)
                 counter +=1
     #extend_options(data, year, excluded=[])
     print('Signed ' + str(counter-1) + ' rookies.')
