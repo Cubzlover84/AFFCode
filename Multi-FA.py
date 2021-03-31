@@ -10,7 +10,7 @@ import time
 export = open('edited.json')
 data = json.load(codecs.open('edited.json', 'r+', 'utf-8-sig'))
 multioffers = pd.read_csv('voting.csv')
-wave = int(input("What FA wave is it? If it's PSFA, type 4"))
+#wave = int(input("What FA wave is it? If it's PSFA, type 4"))
 
 current_season=get_current_year(data)
 phase=get_phase(data)

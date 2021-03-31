@@ -20,7 +20,7 @@ phase=get_phase(data)
 tiers, rookiecontracts = get_tier_sheets()
 
 rookie_resignings(data, rookiecontracts, current_season, phase)
-
+#extend_options(data, current_season, [])
 
 #newoffers = validate_playername_offers(data,offers, current_season)
 #print_multioffers(newoffers,current_season)

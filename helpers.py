@@ -53,6 +53,8 @@ def get_player(data,name,output=1):
     for player in data['players']:
         if name == player['firstName'] + ' ' + player['lastName']:
             return(player)
+        elif name == player['firstName'] + ' ' + player['lastName'] + ' ':
+            return(player)
     if output==1:
         print('Couldnt find '+ str(name))
     return -1
@@ -97,7 +99,7 @@ def get_player_pos(data, name,year):
                 if seasons['season'] == year:
                     return seasons['pos']
 
-    print('Couldnt find '+ name +'\'s position')
+    #print('Couldnt find '+ name +'\'s position')
     return -1
 
 def get_player_traits(data, name):
@@ -131,8 +133,8 @@ def get_tier(data,name,year, phase, years):
 def validate_player(data,name):
     if (name == 'c'):
         return -1
-    #if name[-1:] == ' ':
-        #name = name[:-1]
+    if name[-1:] == ' ':
+        name = name[:-1]
     if get_player(data,name,output=0) == -1:
         return validate_player(data,input("Couldn't find "+ str(name) + ". Perhaps the name is mispelled? Please enter the correct name or \"c\" to skip this offer.\n"))
     else:
@@ -177,7 +179,7 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
                     continue
             if player['tid'] != -1:
 
-                print(player['tid'])
+                #print(player['tid'])
                 notFA=1
                 continue
             else:
@@ -190,15 +192,17 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
                 player['tid'] = team
                 player['watch'] = 'true'
                 if(rookie==False):
+                    #addSalaries(data,name,team,salary,years, year, phase, rookie)
                     #print('\nSigned {0} to the {1} for ${2}m until {3}.'.format(player['firstName'] + ' ' + player['lastName']
                         #,teamname_from_tid(data,player['tid']),player['contract']['amount']/1000,player['contract']['exp']))
-                    print("> **__FA Signing__**\n> {5} **{0}** ({6}/{7}) signs a {1}-year, ${2}M contract with the :{4}: @{3} \n".format(player['firstName'] + ' ' + player['lastName'],int(years),salary ,teamname_from_tid(data,team),
+                    print("{5} **{0}** ({6}/{7}) signs a {1}-year, ${2}M contract with the :{4}: @{3} ".format(player['firstName'] + ' ' + player['lastName'],int(years),salary ,teamname_from_tid(data,team),
                     teamname_to_emoji(teamname_from_tid(data,team)), get_player_pos(data,name,year),int(get_player_ratings(data,name,year)['ovr']),int(get_player_ratings(data,name,year)['pot'])))
 
                 return 1
     if notFA == 1:
-        print(name  + ' is not a free agent.')
-    print(name+': Could not find player '+name)
+        pass
+        #print(name  + ' is not a free agent.')
+    #print(name+': Could not find player '+name)
     return -1
 
 def addSalaries(data,name,team,salary,years, year, phase, rookie):
@@ -234,7 +238,7 @@ def validate_playername_offers(data,sheet,year):
 def print_multioffers(sheet,year, wave):
     multioffers = sheet[sheet.duplicated('player',keep=False)]
     if wave == 1:
-        multioffers = multioffers[multioffers.pot> 60]
+        multioffers = multioffers[multioffers.pot>= 60]
     multioffers.sort_values('player')
     multioffers['El g'] = ""
     multioffers['lam'] = ""
@@ -286,7 +290,7 @@ def rookie_resignings(data, rookiecontracts,year, phase):
                     team = player['transactions'][1]['tid']
                 sign_player(data,player['firstName'] + ' ' + player['lastName'],team,salary,3, year, phase,rookie = True)
                 counter +=1
-    #extend_options(data, year, excluded=[])
+    extend_options(data, year, excluded=[])
     print('Signed ' + str(counter-1) + ' rookies.')
 
 def extend_options(data,draft, excluded):
