@@ -26,7 +26,7 @@ rookie_resignings(data, rookiecontracts, current_season, phase)
 #print_multioffers(newoffers,current_season)
 #sign_singleoffers(data,newoffers,current_season, phase, wave)
 
-with open('edited.json', 'w') as outfile:
+with open('RookieEdited.json', 'w') as outfile:
     json.dump(data, outfile)
 
 
