@@ -192,6 +192,7 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
                 player['tid'] = team
                 player['watch'] = 'true'
                 if(rookie==False):
+                    addSalaries(data,name,team,salary,years, year, phase, rookie)
                     #addSalaries(data,name,team,salary,years, year, phase, rookie)
                     #print('\nSigned {0} to the {1} for ${2}m until {3}.'.format(player['firstName'] + ' ' + player['lastName']
                         #,teamname_from_tid(data,player['tid']),player['contract']['amount']/1000,player['contract']['exp']))
@@ -207,9 +208,9 @@ def sign_player(data,name,team,salary,years, year, phase, rookie):
 
 def addSalaries(data,name,team,salary,years, year, phase, rookie):
     for player in data['players']:
-        if name == player['firstName'] + ' ' + ['lastName']:
-            for i in length(years):
-                salaries.append({"season":year+i,"amount":salary*1000})
+        if name == player['firstName'] + ' ' + player['lastName']:
+            for i in range(years):
+                player["salaries"].append({"season":year+i,"amount":salary*1000})
 
 def validate_playername_offers(data,sheet,year):
     sheet.drop(labels = ['code word'], axis = 1)
